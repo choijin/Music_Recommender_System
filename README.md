@@ -19,20 +19,15 @@ Developed and evaluated a Collaborative Filtering Recommender System using the A
 The data is downloaded from ListenBrainz using 2018, 2019, 2020 data for training and 2021 data for testing. 
 
 ### Schema information
-**recording_msid** 
-String id given to a specific song. Since ListenBrainz collects data from multiple sources, a song can have different      recording_msids depending on which source the data came from.
+**recording_msid**: string id given to a specific song. Since ListenBrainz collects data from multiple sources, a song can have different      recording_msids depending on which source the data came from.
 
-**recording_mbid** 
-To mitigate this issue, ListenBrainz consolidated the recording_msids corresponding to a unique song, and came up with a unique string id. However, it is possible that there is no recording_mbid present.
+**recording_mbid**: to mitigate this issue, ListenBrainz consolidated the recording_msids corresponding to a unique song, and came up with a unique string id. However, it is possible that there is no recording_mbid present.
 
-**track_name** 
-Song title
+**track_name**: song title
 
-**artist_name** 
-Artist name
+**artist_name**: artist name
 
-**user_id** 
-A unique id for each users
+**user_id**: a unique id for each users
 
 ### What is PySpark?
 PySpark is the Python library for Apache Spark, an open-source, distributed computing system used for big data processing and analytics.
