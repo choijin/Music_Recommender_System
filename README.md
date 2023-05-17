@@ -21,7 +21,7 @@ The data is downloaded from ListenBrainz using 2018, 2019, 2020 data for trainin
 ### Schema information
 **recording_msid**: string id given to a specific song. Since ListenBrainz collects data from multiple sources, a song can have different      recording_msids depending on which source the data came from.
 
-**recording_mbid**: to mitigate this issue, ListenBrainz consolidated the recording_msids corresponding to a unique song, and came up with a unique string id. However, it is possible that there is no recording_mbid present.
+**recording_mbid**: to mitigate the issue of there being many recording_msid for a song, ListenBrainz consolidated the recording_msids corresponding to a unique song, and came up with a unique string id. However, it is possible that there is no recording_mbid present.
 
 **track_name**: song title
 
