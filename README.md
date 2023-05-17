@@ -29,9 +29,6 @@ The data is downloaded from ListenBrainz using 2018, 2019, 2020 data for trainin
 
 **user_id**: a unique id for each users
 
-### What is PySpark?
-PySpark is the Python library for Apache Spark, an open-source, distributed computing system used for big data processing and analytics.
-
 ### Data Cleaning
 * **Missing or Irrelevant Data**: First, I checked the datasets for any missing or irrelevant data. This is similar to ensuring all the pieces of a puzzle are present before starting to assemble it.
 
