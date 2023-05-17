@@ -62,27 +62,21 @@ Mean Average Precision at K (MAP@K) is a popular information retrieval metric us
 ## Conclusion
 ### Results
 The popularity baseline model yielded the following Mean Average Precision at 100 (MAP@100) scores:
-```
-+------------------+-----------+
+
 | Dataset          | MAP@100   |
-+------------------+-----------+
+|------------------|-----------|
 | Validation Small | 0.0004942 |
 | Validation Full  | 0.0004317 |
 | Test             | 0.0009574 |
-+------------------+-----------+
-```
 
 The ALS model yielded the following Mean Average Precision at 100 (MAP@100) scores:
 
-```
-+------------------+---------+
 | Dataset          | MAP@100 |
-+------------------+---------+
+|------------------|---------|
 | Validation Small | 0.01628 |
 | Validation Full  | 0.02194 |
 | Test             | 0.05147 |
-+------------------+---------+
-```
+
 
 These results demonstrate a clear improvement in recommendation quality when using the personalized ALS recommender system, as compared to the popularity baseline model.
 
