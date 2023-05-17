@@ -38,14 +38,14 @@ A popularity baseline model is a simple recommendation system that suggests the 
 
 While this model doesn't account for individual user preferences, it serves as a useful baseline to evaluate the performance of more complex models, such as the Alternating Least Squares (ALS) model used in this project.
 
-### Steps
+#### Steps
 * Calculated the popularity of each song based on the number of listens
 * Recommended the top 100 most popular songs to all users 
 
 ### What is ALS?
 Alternating Least Squares (ALS) is a the matrix factorization algorithm that Spark MLlib uses for Collaborative Filtering. ALS is implemented in Apache Spark ML and built for a large-scale collaborative filtering problems.
 
-### Steps
+#### Steps
 * Convert string song id to index (since ALS only takes integer values)
 * Tune hyperparameters to find the best parameters for ALS model
 * Implemented a Collaborative Filtering Recommender System leveraging the Alternating Least Squares (ALS) model to make song recommendations based on implicit user feedback
@@ -54,7 +54,7 @@ Alternating Least Squares (ALS) is a the matrix factorization algorithm that Spa
 ### What is MAP@K?
 Mean Average Precision at K (MAP@K) is a popular information retrieval metric used to evaluate the quality of the ranked lists of recommendations.
 
-### Steps
+#### Steps
 * Assessed the performance of both the ALS model and the popularity baseline model using the Mean Average Precision at K (MAP@K) metric
 * Evaluation involves using the two models trained on the full training set and evaluate the MAP@100 score on both the validation and test set
 * Analyzed and compared the effectiveness of the ALS model against the popularity baseline model
@@ -62,7 +62,7 @@ Mean Average Precision at K (MAP@K) is a popular information retrieval metric us
 ## Conclusion
 ### Results
 The popularity baseline model yielded the following Mean Average Precision at 100 (MAP@100) scores:
-'''
+```
 +------------------+-----------+
 | Dataset          | MAP@100   |
 +------------------+-----------+
@@ -70,11 +70,11 @@ The popularity baseline model yielded the following Mean Average Precision at 10
 | Validation Full  | 0.0004317 |
 | Test             | 0.0009574 |
 +------------------+-----------+
-'''
+```
 
 The ALS model yielded the following Mean Average Precision at 100 (MAP@100) scores:
 
-'''
+```
 +------------------+---------+
 | Dataset          | MAP@100 |
 +------------------+---------+
@@ -82,7 +82,7 @@ The ALS model yielded the following Mean Average Precision at 100 (MAP@100) scor
 | Validation Full  | 0.02194 |
 | Test             | 0.05147 |
 +------------------+---------+
-'''
+```
 
 These results demonstrate a clear improvement in recommendation quality when using the personalized ALS recommender system, as compared to the popularity baseline model.
 
