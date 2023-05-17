@@ -1,4 +1,4 @@
-# Music_Recommender_System
+# Music Recommender System
 
 Click [HERE](https://github.com/choijin/Music_Recommender_System) to see the full and detailed script
 
