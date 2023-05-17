@@ -20,9 +20,13 @@ The data is downloaded from ListenBrainz using 2018, 2019, 2020 data for trainin
 
 ### Schema
 *recording_msid*: String id given to a specific song. Since ListenBrainz collects data from multiple sources, a song can have different recording_msids depending on which source the data came from.
+
 *recording_mbid*: To mitigate this issue, ListenBrainz consolidated the recording_msids corresponding to a unique song, and came up with a unique string id. However, it is possible that there is no recording_mbid present.
+
 *track_name*: Song title
+
 *artist_name*: Artist name
+
 *user_id*: A unique id for each users
 
 ### What is PySpark?
