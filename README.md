@@ -23,15 +23,15 @@ Developed and evaluated a collaborative filtering recommender system using the A
 ### Data
 Data was obtained from [ListenBrainz](https://listenbrainz.org/) using 2018, 2019, 2020 data for training and 2021 data for testing.
 
-* **recording_msid**: string id given to a specific song. Since ListenBrainz collects data from multiple sources, a song can have different `recording_msids` depending on which source the data came from.
+* `**recording_msid**`: string id given to a specific song. Since ListenBrainz collects data from multiple sources, a song can have different `recording_msids` depending on which source the data came from.
 
-* **recording_mbid**: to mitigate the issue of there being many `recording_msid` for a song, ListenBrainz consolidated the `recording_msids` corresponding to a unique song, and came up with a unique string id (`recording_mbid`). However, it is possible that there is no `recording_mbid` present.
+* `**recording_mbid**`: to mitigate the issue of there being many `recording_msid` for a song, ListenBrainz consolidated the `recording_msids` corresponding to a unique song, and came up with a unique string id (`recording_mbid`). However, it is possible that there is no `recording_mbid` present.
 
-* **track_name**: song title
+* `**track_name**`: song title
 
-* **artist_name**: artist name
+* `**artist_name**`: artist name
 
-* **user_id**: a unique id for each users
+* `**user_id**`: a unique id for each users
 
 
 ### Data Cleaning
