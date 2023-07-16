@@ -1,77 +1,81 @@
 # Music Recommender System
-> Click [HERE](https://github.com/choijin/Music_Recommender_System) to see the full and detailed script.
+
+> [Project Source Code](https://github.com/choijin/Music_Recommender_System)
+
+A collaborative filtering recommender system built with the Alternating Least Squares (ALS) model, designed to recommend songs to users based on implicit feedback (interaction count).
 
 ## Table of Contents
-- [Project Overview](#project-overview)
-- [Objectives](#objectives)
-- [Part I. Data Preprocessing](#part-i-data-preprocessing)
-- [Part II. Model Development](#part-ii-model-development)
-- [Part III. Model Evaluation](#part-iii-model-evaluation)
+- [Data Preprocessing](#data-preprocessing)
+  - [Data Source](#data-source)
+  - [Data Cleaning](#data-cleaning)
+  - [Data Partitioning](#data-partitioning)
+- [Model Development](#model-development)
+  - [Popularity Baseline Model](#popularity-baseline-model)
+  - [ALS Model](#als-model)
+- [Model Evaluation](#model-evaluation)
+  - [MAP@K](#mapk)
 - [Conclusion](#conclusion)
+- [Results](#results)
 
 ---
 
-## Project Overview
-This project involves the development and evaluation of a collaborative filtering recommender system using the Alternating Least Squares (ALS) model. The model recommends songs to users based on implicit feedback (the count of songs listened to) for each user-item pair.
-
-## Objectives
-1. Data processing using PySpark on the NYU High Performance Computing (HPC) Dataproc cluster.
-2. Collaborative filtering recommender system development using ALS model.
-3. Comparison of the model with a popularity baseline model.
-4. Performance assessment of models using Mean Average Precision at K (MAP@K) metric.
-
----
-
-## Part I. Data Preprocessing
+## Data Preprocessing
 
 ### Data Source
-Data was obtained from [ListenBrainz](https://listenbrainz.org/) using 2018, 2019, 2020 data for training and 2021 data for testing. 
+
+The data was sourced from ListenBrainz, using 2018, 2019, 2020 data for training, and 2021 data for testing.
 
 ### Data Cleaning
-- Checked for missing or irrelevant data.
-- Identified 'key' variables, and used the `recording_mbid` to uniquely identify each song.
-- Noise reduction: filtered out `user_ids` associated with less than 10 unique `recording_msid`, and vice versa.
+
+1. Checked for missing or irrelevant data.
+2. Identified 'key' variables (`recording_msid`, `recording_mbid`, `track_name`, `artist_name`, `user_id`).
+3. If a song had a `recording_mbid`, it replaced the `recording_msid`. This helped to uniquely identify each song in the dataset.
+4. Noise reduction: filtered out `user_ids` associated with less than 10 unique `recording_msid`, and vice versa.
 
 ### Data Partitioning
-- Partitioned the dataset into a train and validation set, with a split ratio of 8:2.
-- Used user-based split to ensure every user in the training set also appears in the validation set to avoid the cold start problem.
+
+1. Partitioned the dataset into a train and validation set, with an 8:2 split ratio.
+2. Ensured every user in the training set also appeared in the validation set (user-based split).
+3. For each user, created a list of tuples with distinct 'recording_msid' and its count (interaction).
+4. Split each user’s **interactions** into an 8 to 2 ratio.
 
 ---
 
-## Part II. Model Development
+## Model Development
 
 ### Popularity Baseline Model
-A simple recommendation system that suggests the most popular items (songs in this case) to all users. Popularity was determined by the number of times a song has been listened to.
+
+1. Calculated the popularity of each song based on the number of listens.
+2. Recommended the top 100 most popular songs to all users.
 
 ### ALS Model
-Alternating Least Squares (ALS) is a matrix factorization algorithm used for Collaborative Filtering. The model was developed in Apache Spark ML for large-scale collaborative filtering problems.
+
+1. Converted string song id to index (since ALS only takes integer values).
+2. Tuned hyperparameters to find the best parameters for the ALS model.
+3. Implemented a Collaborative Filtering Recommender System leveraging the Alternating Least Squares (ALS) model.
 
 ---
 
-## Part III. Model Evaluation
+## Model Evaluation
 
 ### MAP@K
-Mean Average Precision at K (MAP@K) is an information retrieval metric used to evaluate the quality of the ranked lists of recommendations.
+
+Evaluated the performance of both the ALS model and the popularity baseline model using the Mean Average Precision at K (MAP@K) metric. 
 
 ---
 
 ## Conclusion
 
-### Results
-The popularity baseline model yielded the following Mean Average Precision at 100 (MAP@100) scores:
+The personalized ALS recommender system demonstrated a clear improvement in recommendation quality when compared to the popularity baseline model.
 
-| Dataset          | MAP@100   |
-|------------------|-----------|
-| Validation Small | 0.0004942 |
-| Validation Full  | 0.0004317 |
-| Test             | 0.0009574 |
+---
 
-The ALS model yielded the following Mean Average Precision at 100 (MAP@100) scores:
+## Results
 
-| Dataset          | MAP@100 |
-|------------------|---------|
-| Validation Small | 0.01628 |
-| Validation Full  | 0.02194 |
-| Test             | 0.05147 |
+| Dataset          | Popularity Baseline Model | ALS Model |
+|------------------|---------------------------|-----------|
+| Validation Small | 0.0004942                 | 0.01628   |
+| Validation Full  | 0.0004317                 | 0.02194   |
+| Test             | 0.0009574                 | 0.05147   |
 
-The ALS model's approach of leveraging implicit feedback (the count of songs listened to for each user-item pair) proved to be a more effective strategy for recommending songs to users, tailoring the recommendations to individual user preferences.
+The ALS model effectively recommended songs to users based on their individual preferences, improving the MAP@K scores across all data sets.
