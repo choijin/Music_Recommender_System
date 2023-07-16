@@ -3,7 +3,7 @@
 Click [HERE](https://github.com/choijin/Music_Recommender_System) to see the full and detailed script
 
 ## Project Overview
-Developed and evaluated a Collaborative Filtering Recommender System using the Alternating Least Squares (ALS) model. The model is designed to recommend songs to users based on implicit feedback (the count of songs listened to) for each user-item pair.
+Developed and evaluated a collaborative filtering recommender system using the Alternating Least Squares (ALS) model. The model is designed to recommend songs to users based on implicit feedback (the count of songs listened to) for each user-item pair.
 
 * Processed the data using PySpark on the NYU High Performance Computing (HPC) Dataproc cluster
 * Implemented the ALS model for the recommender system and developed a popularity baseline model for comparison
