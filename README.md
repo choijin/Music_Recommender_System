@@ -2,24 +2,30 @@
 
 Click [HERE](https://github.com/choijin/Music_Recommender_System) to see the full and detailed script
 
+## Table of Contents
+- [Project Overview](#project-overview)
+- [Objectives](#objectives)
+- [Part I. Data Preprocessing](#part-i-data-preprocessing)
+- [Part II. Model Development](#part-ii-model-development)
+- [Part III. Model Evaluation](#part-iii-model-evaluation)
+- [Conclusion](#conclusion)
+
 ## Project Overview
 Developed and evaluated a collaborative filtering recommender system using the Alternating Least Squares (ALS) model. The model is designed to recommend songs to users based on implicit feedback (the count of songs listened to) for each user-item pair.
 
 ## Objectives
-* Processed the data using PySpark on the NYU High Performance Computing (HPC) Dataproc cluster.
-* Develop a collaborative filtering recommender system using ALS model.
-* Evaluate the model against a popularity baseline model.
-* Assessed the performance of models using the Mean Average Precision at K (MAP@K) metric.
+1. Processed the data using PySpark on the NYU High Performance Computing (HPC) Dataproc cluster.
+2. Develop a collaborative filtering recommender system using ALS model.
+3. Evaluate the model against a popularity baseline model.
+4. Assessed the performance of models using the Mean Average Precision at K (MAP@K) metric.
 
 ## Part I. Data Preprocessing
-### ListenBrainz
-The data is downloaded from ListenBrainz using 2018, 2019, 2020 data for training and 2021 data for testing. 
+### Data
+Data was obtained from [ListenBrainz](https://listenbrainz.org/) using 2018, 2019, 2020 data for training and 2021 data for testing.
 
-### Schema information
+**recording_msid**: string id given to a specific song. Since ListenBrainz collects data from multiple sources, a song can have different `recording_msids` depending on which source the data came from.
 
-**recording_msid**: string id given to a specific song. Since ListenBrainz collects data from multiple sources, a song can have different      recording_msids depending on which source the data came from.
-
-**recording_mbid**: to mitigate the issue of there being many recording_msid for a song, ListenBrainz consolidated the recording_msids corresponding to a unique song, and came up with a unique string id. However, it is possible that there is no recording_mbid present.
+**recording_mbid**: to mitigate the issue of there being many `recording_msid` for a song, ListenBrainz consolidated the `recording_msids` corresponding to a unique song, and came up with a unique string id (`recording_mbid`). However, it is possible that there is no `recording_mbid` present.
 
 **track_name**: song title
 
@@ -29,11 +35,11 @@ The data is downloaded from ListenBrainz using 2018, 2019, 2020 data for trainin
 
 
 ### Data Cleaning
-* **Missing or Irrelevant Data**: First, I checked the datasets for any missing or irrelevant data. This is similar to ensuring all the pieces of a puzzle are present before starting to assemble it.
+- **Missing or Irrelevant Data**: First, I checked the datasets for any missing or irrelevant data.
 
-* **Key Variables Identification**: Next, I explored the variables in the datasets to identify the 'key' variable. In this case, I found that a song could have multiple recording_msid assigned, but the recording_mbid was unique for each song, unless it was null.
+- **Key Variables Identification**: Next, I explored the variables in the datasets to identify the 'key' variable. In this case, I found that a song could have multiple recording_msid assigned, but the recording_mbid was unique for each song, unless it was null.
 
-* **Data Substitution**: If a song had a recording_mbid, I used this as the key variable, replacing the recording_msid. This helped us to uniquely identify each song in our dataset.
+- **Data Substitution**: If a song had a `recording_mbid`, I used this as the key variable and replaced the `recording_msid` to `recording_mbid`. This helped us to uniquely identify each song in our dataset.
 
 * **Noise Reduction**: To reduce noise in the data and focus on relevant information, I filtered out user_ids associated with less than 10 unique recording_msid, and vice versa. This is akin to removing outliers in a data set.
 
