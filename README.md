@@ -56,8 +56,8 @@ A popularity baseline model is a simple recommendation system that suggests the 
 While this model doesn't account for individual user preferences, it serves as a useful baseline to evaluate the performance of more complex models, such as the Alternating Least Squares (ALS) model used in this project.
 
 #### Steps
-1. Calculated the popularity of each song based on the number of listens
-2. Recommended the top 100 most popular songs to all users 
+1. Calculate the popularity of each song based on the number of listens
+2. Recommend the top 100 most popular songs to all users 
 
 ### What is ALS?
 Alternating Least Squares (ALS) is a the matrix factorization algorithm that Spark MLlib uses for Collaborative Filtering. ALS is implemented in Apache Spark ML and built for a large-scale collaborative filtering problems.
@@ -65,16 +65,16 @@ Alternating Least Squares (ALS) is a the matrix factorization algorithm that Spa
 #### Steps
 1. Convert string song id to index (since ALS only takes integer values)
 2. Tune hyperparameters to find the best parameters for ALS model
-3. Implemented a Collaborative Filtering Recommender System leveraging the Alternating Least Squares (ALS) model to make song recommendations based on implicit user feedback
+3. Implement a Collaborative Filtering Recommender System leveraging the Alternating Least Squares (ALS) model to make song recommendations based on implicit user feedback
 
 ## Part III. Model Evaluation
 ### What is MAP@K?
 Mean Average Precision at K (MAP@K) is a popular information retrieval metric used to evaluate the quality of the ranked lists of recommendations.
 
 #### Steps
-1. Assessed the performance of both the ALS model and the popularity baseline model using the Mean Average Precision at K (MAP@K) metric
-2. Evaluation involves using the two models trained on the full training set and evaluate the MAP@100 score on both the validation and test set
-3. Analyzed and compared the effectiveness of the ALS model against the popularity baseline model
+1. Train the models on the full training set using the hyperparameters found on validation set.
+2. Assess the performance of both the ALS model and the popularity baseline model using MAP@100 on test set.
+3. Analyze and compare the effectiveness of the ALS model against the popularity baseline model
 
 ## Conclusion
 ### Results
