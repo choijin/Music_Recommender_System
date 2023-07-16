@@ -1,76 +1,62 @@
 # Music Recommender System
+> Click [HERE](https://github.com/choijin/Music_Recommender_System) to see the full and detailed script.
 
-Click [HERE](https://github.com/choijin/Music_Recommender_System) to see the full and detailed script
+## Table of Contents
+- [Project Overview](#project-overview)
+- [Objectives](#objectives)
+- [Part I. Data Preprocessing](#part-i-data-preprocessing)
+- [Part II. Model Development](#part-ii-model-development)
+- [Part III. Model Evaluation](#part-iii-model-evaluation)
+- [Conclusion](#conclusion)
+
+---
 
 ## Project Overview
-Developed and evaluated a collaborative filtering recommender system using the Alternating Least Squares (ALS) model. The model is designed to recommend songs to users based on implicit feedback (the count of songs listened to) for each user-item pair.
+This project involves the development and evaluation of a collaborative filtering recommender system using the Alternating Least Squares (ALS) model. The model recommends songs to users based on implicit feedback (the count of songs listened to) for each user-item pair.
 
 ## Objectives
-* Processed the data using PySpark on the NYU High Performance Computing (HPC) Dataproc cluster.
-* Develop a collaborative filtering recommender system using ALS model.
-* Evaluate the model against a popularity baseline model.
-* Assessed the performance of models using the Mean Average Precision at K (MAP@K) metric.
+1. Data processing using PySpark on the NYU High Performance Computing (HPC) Dataproc cluster.
+2. Collaborative filtering recommender system development using ALS model.
+3. Comparison of the model with a popularity baseline model.
+4. Performance assessment of models using Mean Average Precision at K (MAP@K) metric.
+
+---
 
 ## Part I. Data Preprocessing
-### ListenBrainz
-The data is downloaded from ListenBrainz using 2018, 2019, 2020 data for training and 2021 data for testing. 
 
-### Schema information
-
-**recording_msid**: string id given to a specific song. Since ListenBrainz collects data from multiple sources, a song can have different      recording_msids depending on which source the data came from.
-
-**recording_mbid**: to mitigate the issue of there being many recording_msid for a song, ListenBrainz consolidated the recording_msids corresponding to a unique song, and came up with a unique string id. However, it is possible that there is no recording_mbid present.
-
-**track_name**: song title
-
-**artist_name**: artist name
-
-**user_id**: a unique id for each users
-
+### Data Source
+Data was obtained from [ListenBrainz](https://listenbrainz.org/) using 2018, 2019, 2020 data for training and 2021 data for testing. 
 
 ### Data Cleaning
-* **Missing or Irrelevant Data**: First, I checked the datasets for any missing or irrelevant data. This is similar to ensuring all the pieces of a puzzle are present before starting to assemble it.
-
-* **Key Variables Identification**: Next, I explored the variables in the datasets to identify the 'key' variable. In this case, I found that a song could have multiple recording_msid assigned, but the recording_mbid was unique for each song, unless it was null.
-
-* **Data Substitution**: If a song had a recording_mbid, I used this as the key variable, replacing the recording_msid. This helped us to uniquely identify each song in our dataset.
-
-* **Noise Reduction**: To reduce noise in the data and focus on relevant information, I filtered out user_ids associated with less than 10 unique recording_msid, and vice versa. This is akin to removing outliers in a data set.
+- Checked for missing or irrelevant data.
+- Identified 'key' variables, and used the `recording_mbid` to uniquely identify each song.
+- Noise reduction: filtered out `user_ids` associated with less than 10 unique `recording_msid`, and vice versa.
 
 ### Data Partitioning
-* The goal is to partition the dataset into a train and validation set, with a split ratio of 8:2.
-* Ensure every user in the training set also appears in the validation set to avoid the cold start problem (user-based split).
-* For each user, created a list of tuples with distinct 'recording_msid' and its count (interaction).
-* Split each user’s **interactions** into an 8 to 2 ratio, where 80% of the interactions go to the training set and the remaining 20% go into the validation set.
+- Partitioned the dataset into a train and validation set, with a split ratio of 8:2.
+- Used user-based split to ensure every user in the training set also appears in the validation set to avoid the cold start problem.
+
+---
 
 ## Part II. Model Development
-### What is a Popularity Baseline Model?
-A popularity baseline model is a simple recommendation system that suggests the most popular items to all users. In this context, popularity is determined by the number of times a song has been listened to.
 
-While this model doesn't account for individual user preferences, it serves as a useful baseline to evaluate the performance of more complex models, such as the Alternating Least Squares (ALS) model used in this project.
+### Popularity Baseline Model
+A simple recommendation system that suggests the most popular items (songs in this case) to all users. Popularity was determined by the number of times a song has been listened to.
 
-#### Steps
-* Calculated the popularity of each song based on the number of listens
-* Recommended the top 100 most popular songs to all users 
+### ALS Model
+Alternating Least Squares (ALS) is a matrix factorization algorithm used for Collaborative Filtering. The model was developed in Apache Spark ML for large-scale collaborative filtering problems.
 
-### What is ALS?
-Alternating Least Squares (ALS) is a the matrix factorization algorithm that Spark MLlib uses for Collaborative Filtering. ALS is implemented in Apache Spark ML and built for a large-scale collaborative filtering problems.
-
-#### Steps
-* Convert string song id to index (since ALS only takes integer values)
-* Tune hyperparameters to find the best parameters for ALS model
-* Implemented a Collaborative Filtering Recommender System leveraging the Alternating Least Squares (ALS) model to make song recommendations based on implicit user feedback
+---
 
 ## Part III. Model Evaluation
-### What is MAP@K?
-Mean Average Precision at K (MAP@K) is a popular information retrieval metric used to evaluate the quality of the ranked lists of recommendations.
 
-#### Steps
-* Assessed the performance of both the ALS model and the popularity baseline model using the Mean Average Precision at K (MAP@K) metric
-* Evaluation involves using the two models trained on the full training set and evaluate the MAP@100 score on both the validation and test set
-* Analyzed and compared the effectiveness of the ALS model against the popularity baseline model
+### MAP@K
+Mean Average Precision at K (MAP@K) is an information retrieval metric used to evaluate the quality of the ranked lists of recommendations.
+
+---
 
 ## Conclusion
+
 ### Results
 The popularity baseline model yielded the following Mean Average Precision at 100 (MAP@100) scores:
 
@@ -88,7 +74,4 @@ The ALS model yielded the following Mean Average Precision at 100 (MAP@100) scor
 | Validation Full  | 0.02194 |
 | Test             | 0.05147 |
 
-
-These results demonstrate a clear improvement in recommendation quality when using the personalized ALS recommender system, as compared to the popularity baseline model.
-
-This suggests that the ALS model's approach of leveraging implicit feedback (the count of songs listened to for each user-item pair) is a more effective strategy for recommending songs to users, as it tailors the recommendations to individual user preferences.
+The ALS model's approach of leveraging implicit feedback (the count of songs listened to for each user-item pair) proved to be a more effective strategy for recommending songs to users, tailoring the recommendations to individual user preferences.
