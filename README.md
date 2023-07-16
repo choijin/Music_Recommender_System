@@ -31,7 +31,7 @@ Data was obtained from [ListenBrainz](https://listenbrainz.org/) using 2018, 201
 
 * `**artist_name**`: artist name
 
-* `**user_id**`: a unique id for each users
+* **`user_id`**: a unique id for each users
 
 
 ### Data Cleaning
