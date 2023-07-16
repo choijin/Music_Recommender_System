@@ -35,13 +35,13 @@ Data was obtained from [ListenBrainz](https://listenbrainz.org/) using 2018, 201
 
 
 ### Data Cleaning
-* **Missing or Irrelevant Data**: First, I checked the datasets for any missing or irrelevant data.
+* **`Missing or Irrelevant Data`**: First, I checked the datasets for any missing or irrelevant data.
 
-* **Key Variables Identification**: Next, I explored the variables in the datasets to identify the 'key' variable. In this case, I found that a song could have multiple recording_msid assigned, but the recording_mbid was unique for each song, unless it was null.
+* **`Key Variables Identification`**: Next, I explored the variables in the datasets to identify the 'key' variable. In this case, I found that a song could have multiple recording_msid assigned, but the recording_mbid was unique for each song, unless it was null.
 
-* **Data Substitution**: If a song had a `recording_mbid`, I used this as the key variable and replaced the `recording_msid` to `recording_mbid`. This helped us to uniquely identify each song in our dataset.
+* **`Data Substitution`**: If a song had a recording_mbid, I used this as the key variable and replaced the recording_msid to recording_mbid. This helped us to uniquely identify each song in our dataset.
 
-* **Noise Reduction**: To reduce noise in the data and focus on relevant information, I filtered out user_ids associated with less than 10 unique `recording_msid`, and vice versa. This is akin to removing outliers in a data set.
+* **`Noise Reductio`n**: To reduce noise in the data and focus on relevant information, I filtered out user_ids associated with less than 10 unique recording_msid, and vice versa. This is akin to removing outliers in a data set.
 
 ### Data Partitioning
 * The goal is to partition the dataset into a train and validation set, with a split ratio of 8:2.
