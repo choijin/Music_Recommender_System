@@ -46,7 +46,7 @@ Data was obtained from [ListenBrainz](https://listenbrainz.org/) using 2018, 201
 ### Data Partitioning
 * The goal is to partition the dataset into a train and validation set, with a split ratio of 8:2.
 * Ensure every user in the training set also appears in the validation set to avoid the cold start problem (user-based split).
-* For each user, created a list of tuples with distinct `recording_msid` and its count (interaction).
+* For each user, created a list of tuples with distinct recording_msid and its count (interaction).
 * Split each user’s **interactions** into an 8 to 2 ratio, where 80% of the interactions go to the training set and the remaining 20% go into the validation set.
 
 ## Part II. Model Development
