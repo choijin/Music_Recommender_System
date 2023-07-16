@@ -5,14 +5,11 @@ Click [HERE](https://github.com/choijin/Music_Recommender_System) to see the ful
 ## Project Overview
 Developed and evaluated a collaborative filtering recommender system using the Alternating Least Squares (ALS) model. The model is designed to recommend songs to users based on implicit feedback (the count of songs listened to) for each user-item pair.
 
-* Processed the data using PySpark on the NYU High Performance Computing (HPC) Dataproc cluster
-* Implemented the ALS model for the recommender system and developed a popularity baseline model for comparison
-* Assessed the performance of both models using the Mean Average Precision at K (MAP@K) metric
-
 ## Objectives
-* Develop a collaborative filtering recommender system using ALS model
-* Evaluate the model against a popularity baseline model
-* Use MAP@K metric for performance assessment
+* Processed the data using PySpark on the NYU High Performance Computing (HPC) Dataproc cluster.
+* Develop a collaborative filtering recommender system using ALS model.
+* Evaluate the model against a popularity baseline model.
+* Assessed the performance of models using the Mean Average Precision at K (MAP@K) metric.
 
 ## Part I. Data Preprocessing
 ### ListenBrainz
@@ -39,9 +36,10 @@ The data is downloaded from ListenBrainz using 2018, 2019, 2020 data for trainin
 * **Noise Reduction**: To reduce noise in the data and focus on relevant information, I filtered out user_ids associated with less than 10 unique recording_msid, and vice versa. This is akin to removing outliers in a data set.
 
 ### Data Partitioning
-* The goal was to partition the dataset into a train and validation set, with a split ratio of 8:2, ensuring every user in the training set also appears in the validation set to avoid the cold start problem
-* Created a distinct list of 'recording_msid' for each user
-* Split each user’s interactions into an 8 to 2 ratio, where 80% of the interactions go to the training set and the remaining 20% go into the validation set
+* The goal is to partition the dataset into a train and validation set, with a split ratio of 8:2.
+* Ensure every user in the training set also appears in the validation set to avoid the cold start problem (user-based split).
+* For each user, created a list of tuples with distinct 'recording_msid' and its count (interaction).
+* Split each user’s **interactions** into an 8 to 2 ratio, where 80% of the interactions go to the training set and the remaining 20% go into the validation set.
 
 ## Part II. Model Development
 ### What is a Popularity Baseline Model?
