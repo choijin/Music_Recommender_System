@@ -14,10 +14,18 @@ Click [HERE](https://github.com/choijin/Music_Recommender_System) to see the ful
 Developed and evaluated a collaborative filtering recommender system using the Alternating Least Squares (ALS) model. The model is designed to recommend songs to users based on implicit feedback (the count of songs listened to) for each user-item pair.
 
 ## Objectives
-1. Process the data using PySpark on the NYU High Performance Computing (HPC) Dataproc cluster.
-2. Develop a collaborative filtering recommender system using ALS model.
+1. Process the data using PySpark on the NYU High-Performance Computing (HPC) Dataproc cluster.
+2. Develop a collaborative filtering recommender system using the ALS model.
 3. Evaluate the model against a popularity baseline model.
 4. Assess the performance of models using the Mean Average Precision at K (MAP@K) metric.
+
+## Files
+* **`Baseline.py`**: Creates the popularity baseline model that recommends 100 most listened songs.
+* **`Partition.py`**: Splits the data into training and validation sets and also filters data to reduce size.
+* **`Process_test.py`**: Performs Partition.py on the test set.
+* **`ALS.py`**: Runs the ALS model on the train and evaluates the result using the test set.
+* **`ALS_tune.py`**: Performs hyperparameter tuning on the ALS model to find the best parameters.
+* **`Lenskit.ipynb`**: Single-machine ALS recommender system model built to test its computation time and metrics against PySpark ALS model. 
 
 ## Part I. Data Preprocessing
 ### Data
@@ -41,7 +49,7 @@ Data was obtained from [ListenBrainz](https://listenbrainz.org/) using 2018, 201
 
 * **`Data Substitution`**: If a song had a recording_mbid, I used this as the key variable and replaced the recording_msid to recording_mbid. This helped us to uniquely identify each song in our dataset.
 
-* **`Noise Reductio`n**: To reduce noise in the data and focus on relevant information, I filtered out user_ids associated with less than 10 unique recording_msid, and vice versa. This is akin to removing outliers in a data set.
+* **`Noise Reduction`**: To reduce noise in the data and focus on relevant information, I filtered out user_ids associated with less than 10 unique recording_msid, and vice versa. This is akin to removing outliers in a data set.
 
 ### Data Partitioning
 * The goal is to partition the dataset into a train and validation set, with a split ratio of 8:2.
